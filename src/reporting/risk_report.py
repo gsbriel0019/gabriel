@@ -70,8 +70,8 @@ class ExecutiveRiskReporter:
 * **Current Market Regime:** **{current_regime}**
 * **Expected Regime Persistence:** {regime_durations.get('Regime 0', 'N/A')} days (Bullish) | {regime_durations.get('Regime 2', 'N/A')} days (Crisis)
 * **Annualized Portfolio Expected Return:** {portfolio_metrics.get('Annualized_Return', 0.0) * 100:.2f}%
-* **Annualized Volatility ($\sigma$):** {portfolio_metrics.get('Annualized_Volatility', 0.0) * 100:.2f}%
-* **Sharpe Ratio ($r_f=4.5\%$):** {portfolio_metrics.get('Sharpe_Ratio', 0.0):.2f}
+* **Annualized Volatility ($\\sigma$):** {portfolio_metrics.get('Annualized_Volatility', 0.0) * 100:.2f}%
+* **Sharpe Ratio ($r_f=4.5\\%$):** {portfolio_metrics.get('Sharpe_Ratio', 0.0):.2f}
 * **Maximum Historical Drawdown:** {portfolio_metrics.get('Max_Drawdown', 0.0) * 100:.2f}%
 
 ---
