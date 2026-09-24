@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  alpharisk-app:
+    build: .
+    container_name: alpharisk_dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped

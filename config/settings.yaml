@@ -1,0 +1,71 @@
+# AlphaRisk Platform Configuration
+
+app:
+  name: "AlphaRisk"
+  version: "1.0.0"
+  description: "Quantitative Market Regime Detection & Stress-Testing Platform"
+  author: "Gabriel Proaño"
+  github_repo: "https://github.com/gsbriel0019/gabriel"
+
+data:
+  default_tickers:
+    - "SPY"    # S&P 500 ETF (Core Equity)
+    - "QQQ"    # Nasdaq 100 ETF (Tech Growth)
+    - "GLD"    # Gold Trust (Commodity / Safe Haven)
+    - "TLT"    # 20+ Year Treasury Bond ETF (Fixed Income)
+    - "BTC-USD"# Bitcoin (Digital Asset / Asymmetric Risk)
+  benchmark_ticker: "SPY"
+  default_start_date: "2018-01-01"
+  cache_dir: "data/cache"
+  use_cache: true
+
+regimes:
+  default_model: "HMM"         # Options: 'HMM', 'GMM'
+  n_regimes: 3                 # 0: Low Volatility Bull, 1: High Vol Neutral/Correction, 2: Panic/Crisis
+  features:
+    - "log_return"
+    - "realized_vol_21d"
+  covariance_type: "full"
+  random_state: 42
+
+risk:
+  confidence_levels:
+    - 0.95
+    - 0.99
+  horizons_days:
+    - 1
+    - 10
+  methods:
+    - "historical"
+    - "parametric_normal"
+    - "parametric_student_t"
+    - "cornish_fisher"
+  backtest_window_days: 252
+
+portfolio:
+  risk_free_rate: 0.045        # Approximate 3-Month US T-Bill
+  optimization_methods:
+    - "HRP"                    # Hierarchical Risk Parity
+    - "MIN_VOL"                # Minimum Volatility
+    - "MAX_SHARPE"             # Maximum Sharpe Ratio
+    - "EQUAL_WEIGHT"           # 1/N Benchmark
+
+stress_testing:
+  scenarios:
+    fed_hawkish_shock:
+      name: "Fed Aggressive Rate Hike (+75 bps shock)"
+      equity_shock: -0.065
+      rates_shock: +0.0075
+      vol_shock_pct: +0.40
+    covid_style_crash:
+      name: "2020 Liquidity Crunch (VIX Spike + Panic Selling)"
+      equity_shock: -0.28
+      crypto_shock: -0.45
+      gold_shock: -0.08
+      vol_shock_pct: +1.20
+    stagflation_shock:
+      name: "1970s Style Stagflation Shock"
+      equity_shock: -0.15
+      bond_shock: -0.18
+      commodity_shock: +0.25
+      vol_shock_pct: +0.50
